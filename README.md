@@ -4,13 +4,16 @@ Python script for converting set of questions and answers from .docx to utf8 .tx
 #### USAGE:
 `python questions_parser.py -i input_file.docx -o output_file.txt`
 
+#### REQUIREMENTS:
+`python-docx`
+
 #### Example of input and output files:
 Example of input file:
     
        1. Some question:
        Answer I
        Answer II
-       **Answer III** (correct answer - written in bold text)
+       Answer III (correct answer - written in bold text)
        Answer IV
        Answer V
 
