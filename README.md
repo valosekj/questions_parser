@@ -1,0 +1,32 @@
+## Questions parser
+Python script for converting set of questions and answers from .docx to utf8 .txt
+
+#### USAGE:
+`python questions_parser.py -i input_file.docx -o output_file.txt`
+
+#### Example of input and output files:
+Example of input file:
+    
+       1. Some question:
+       Answer I
+       Answer II
+       **Answer III** (correct answer - written in bold text)
+       Answer IV
+       Answer V
+
+
+ Example of output file:
+ 
+       1. Some question:
+       A. Answer I
+       B. Answer II
+       C. Answer III
+       D. Answer IV
+       E. Answer V
+       ANSWER: C
+       
+Correct answer is selected from original answers based on bold text.
+Answers in new file are shown in alphabetical list and correct answer is denoted below answers.
+
+#### Contact:
+Jan Valosek, fMRI laboratory Olomouc
