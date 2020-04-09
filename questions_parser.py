@@ -40,6 +40,9 @@ from docx import Document
 
 class QuestionsParser():
 
+    def __init__(self):
+        self.counter = 0
+
     def write_paragraph(self, question, answers, bold_sentence, output):
         """
         :param question: str - line containing question
@@ -62,6 +65,11 @@ class QuestionsParser():
                 correct_answer = key
 
         output.write("ANSWER: {}\n\n".format(correct_answer))  # write letter for correct answer to file
+
+        # Progress counter
+        self.counter += 1
+        sys.stdout.write("\rNumber of successfully processed questions: %s" % (self.counter))
+        sys.stdout.flush()
 
     def main(self):
 
@@ -100,6 +108,7 @@ class QuestionsParser():
                 bold_sentence = str()
 
         output.close()      # close output txt file
+        print()  # go to new line when counter finish
 
 
     def get_parser(self):
