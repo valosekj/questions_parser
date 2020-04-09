@@ -41,6 +41,13 @@ from docx import Document
 class QuestionsParser():
 
     def write_paragraph(self, question, answers, bold_sentence, output):
+        """
+        :param question: str - line containing question
+        :param answers: list - all answers
+        :param bold_sentence: str - line written in bold (correct answer)
+        :param output: name of output .txt file
+        :return:
+        """
         letters = ["A", "B", "C", "D", "E"]
         correct_answer = str()
 
@@ -78,7 +85,7 @@ class QuestionsParser():
 
             if paragraph.text is not "":                            # check if line is not empty
                 if paragraph.text[0].isdigit():                     # check if line begins with digit (find question)
-                    question = paragraph.text
+                    question = paragraph.text                       # get line containing question
                 else:
                     answers.append(paragraph.text)                  # save all other lines to answer list
 
@@ -98,7 +105,7 @@ class QuestionsParser():
     def get_parser(self):
 
         parser = argparse.ArgumentParser(
-            description='Parser for exam questions. See code for whole help.'
+            description='Parser for exam questions. See code for whole help. '
                         'Jan Valosek, 2020',
             add_help=False,
             prog=os.path.basename(__file__))
