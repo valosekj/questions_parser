@@ -72,7 +72,7 @@ class QuestionsParser():
         if os.path.isfile(self.arguments.i):
             document = Document(self.arguments.i)
         else:
-            sys.exit()
+            sys.exit("ERROR: Input file {} does not exist or path is wrong.".format(self.arguments.i))
 
         output = codecs.open(self.arguments.o, "w", "utf-8")
 
