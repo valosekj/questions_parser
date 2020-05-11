@@ -58,7 +58,11 @@ class QuestionsParser():
 
         answers_dict = (dict(zip(letters, answers)))  # combine letters and answers into dict
         for key, values in answers_dict.items():
-            output.write("{}. {}\n".format(key, values))  # write letter and answer to file
+            # if input answers start with lower-case letters, delete them
+            if values.startswith('a') or values.startswith('b') or values.startswith('c') or values.startswith('d') or values.startswith('e'):
+                output.write("{}. {}\n".format(key, values[3:]))    # write letter and answer to file
+            else:
+                output.write("{}. {}\n".format(key, values))  # write letter and answer to file
 
             if bold_sentence == values:  # get letter for correct answer
                 #print(bold_sentence)
