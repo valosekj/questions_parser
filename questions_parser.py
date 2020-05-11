@@ -99,7 +99,7 @@ class QuestionsParser():
             if paragraph.text != "":                                # check if line != empty
                 if paragraph.text[0].isdigit():                     # check if line begins with digit (find question)
                     question = paragraph.text                       # get line containing question
-                else:
+                elif paragraph.runs[0].italic is None:              # exclude chapter titles written in italic
                     answers.append(paragraph.text)                  # save all other lines to answer list
 
                 # Loop across individual words in given line
@@ -111,7 +111,8 @@ class QuestionsParser():
                         bold_sentence += run.text   # create line from individual bold words
 
             # If line is empty (after question and set of answers), call function for writing to file
-            elif paragraph.text is "" and bold_sentence != "":
+            # update - there could be space between individual input answers -> added len(answers) condition
+            elif paragraph.text is "" and bold_sentence != "" and len(answers) == 5:
                 self.write_paragraph(question, answers, bold_sentence, output)
                 answers = list()
                 bold_sentence = str()
