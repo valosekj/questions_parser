@@ -1,7 +1,7 @@
 ## Questions parser
 Python script for converting set of questions and answers from .docx to utf8 .txt
 
-#### INSTALL:
+#### INSTALL (OSX):
 `git clone https://github.com/valosekj/questions_parser.git`
 
 `cd questions_parser`
