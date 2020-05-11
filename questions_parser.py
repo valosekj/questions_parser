@@ -89,21 +89,24 @@ class QuestionsParser():
         bold_sentence = str()
         answers = list()
 
-        for paragraph in document.paragraphs:   # loop through individual lines
+        # Loop across individual lines in input document
+        for paragraph in document.paragraphs:
 
-            if paragraph.text != "":                            # check if line != empty
+            if paragraph.text != "":                                # check if line != empty
                 if paragraph.text[0].isdigit():                     # check if line begins with digit (find question)
                     question = paragraph.text                       # get line containing question
                 else:
                     answers.append(paragraph.text)                  # save all other lines to answer list
 
-                for run in paragraph.runs:          # loop through individual words in given line
-                    if paragraph.text[0].isdigit(): # skip line if it is question (sometimes question can be bold, better to skip it)
+                # Loop across individual words in given line
+                for run in paragraph.runs:
+                    # Skip line if it is question (sometimes question can be bold, better to skip it)
+                    if paragraph.text[0].isdigit():
                         continue
                     if run.bold:                    # extract bold words
                         bold_sentence += run.text   # create line from individual bold words
 
-            # when line is empty (after question and set of answers), call function for writing to file
+            # If line is empty (after question and set of answers), call function for writing to file
             elif paragraph.text is "" and bold_sentence != "":
                 self.write_paragraph(question, answers, bold_sentence, output)
                 answers = list()
