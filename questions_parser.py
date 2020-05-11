@@ -59,11 +59,27 @@ class QuestionsParser():
         answers_dict = (dict(zip(letters, answers)))  # combine letters and answers into dict
         for key, values in answers_dict.items():
             # if input answers start with lower-case letters, delete them
-            if values.startswith('a') or values.startswith('b') or values.startswith('c') or values.startswith('d') or values.startswith('e'):
+            if values.startswith('a.') or values.startswith('b.') or values.startswith('c.') or values.startswith('d.') \
+                    or values.startswith('e.'):
                 output.write("{}. {}\n".format(key, values[3:]))    # write letter and answer to file
             else:
                 output.write("{}. {}\n".format(key, values))  # write letter and answer to file
 
+            # FIND correct answer letter (i.e. compare correct answer with all other answers)
+            # delete spaces from answers
+            if values.count(" ") != 0:
+                values = values.replace(" ","")
+            # if input answers start with lower-case letters, delete them
+            if values.startswith('a.') or values.startswith('b.') or values.startswith('c.') or values.startswith(
+                    'd.') or values.startswith('e.'):
+                values = values[2:]
+            # delete spaces from correct answer
+            if bold_sentence.count(" ") != 0:
+                bold_sentence = bold_sentence.replace(" ","")
+            # if correct answer starts with lower-case letters, delete it
+            if bold_sentence.startswith('a.') or bold_sentence.startswith('b.') or bold_sentence.startswith('c.') or \
+                    bold_sentence.startswith('d.') or bold_sentence.startswith('e.'):
+                bold_sentence = bold_sentence[2:]
             if bold_sentence == values:  # get letter for correct answer
                 #print(bold_sentence)
                 correct_answer = key
