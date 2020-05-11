@@ -1,6 +1,17 @@
 ## Questions parser
 Python script for converting set of questions and answers from .docx to utf8 .txt
 
+#### INSTALL:
+`git clone https://github.com/valosekj/questions_parser.git`
+
+`cd questions_parser`
+
+`python3 -m venv venv`
+
+`source venv/bin/activate`
+
+`pip install -r requirements.txt`
+
 #### USAGE:
 `python questions_parser.py -i input_file.docx -o output_file.txt`
 
@@ -31,5 +42,5 @@ Example of input file:
 Correct answer is selected from original answers based on bold text.
 Answers in new file are shown in alphabetical list and correct answer is denoted below answers.
 
-#### Contact:
+#### Author:
 Jan Valosek, fMRI laboratory Olomouc
