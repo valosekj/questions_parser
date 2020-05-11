@@ -26,6 +26,7 @@
 # Correct answer is selected from original answers based on bold text.
 # Answers in new file are shown in alphabetical list and correct answer
 # is denoted below answers.
+# Script also clear multiple spaces in question and answers.
 #
 #######################################################################
 #   Jan Valosek, fMRI laboratory, VER=09-04-2020
@@ -34,6 +35,7 @@
 import sys
 import argparse
 import codecs
+import re
 import os.path
 from docx import Document
 
@@ -43,8 +45,34 @@ class QuestionsParser():
     def __init__(self):
         self.counter = 0
 
+    def remove_multiple_spaces(self, input_sentence):
+        """
+        remove multiple spaces from sentence
+        :param input_sentence: str: input sentence which can contain multiple spaces
+        :return: str: sentence without multiple spaces
+        """
+        return re.sub(' +', ' ', input_sentence)
+
+    def clear_sentence(self, input_sentence):
+        """
+        clear sentence - remove spaces and initial lower-case letter
+        this step is better for comparison (finding correct answer)
+        :param input_sentence: str: input sentence to be cleared
+        :return: str: cleared sentence
+        """
+        # delete all spaces (sometimes are spaces at unexpected positions -> better to clean them)
+        if input_sentence.count(" ") != 0:
+            input_sentence = input_sentence.replace(" ", "")
+        # if sentence starts with lower-case letters, delete it
+        if input_sentence.startswith('a.') or input_sentence.startswith('b.') or input_sentence.startswith('c.') \
+                or input_sentence.startswith('d.') or input_sentence.startswith('e.'):
+            input_sentence = input_sentence[2:]
+
+        return input_sentence
+
     def write_paragraph(self, question, answers, bold_sentence, output):
         """
+        write parsed (reformatted and cleared) question and answers into utf-8 file
         :param question: str - line containing question
         :param answers: list - all answers
         :param bold_sentence: str - line written in bold (correct answer)
@@ -57,30 +85,18 @@ class QuestionsParser():
         output.write("{}\n".format(question))         # write question to file
 
         answers_dict = (dict(zip(letters, answers)))  # combine letters and answers into dict
-        for key, values in answers_dict.items():
+        for key, value in answers_dict.items():
             # if input answers start with lower-case letters, delete them
-            if values.startswith('a.') or values.startswith('b.') or values.startswith('c.') or values.startswith('d.') \
-                    or values.startswith('e.'):
-                output.write("{}. {}\n".format(key, values[3:]))    # write letter and answer to file
+            if value.startswith('a.') or value.startswith('b.') or value.startswith('c.') or value.startswith('d.') \
+                    or value.startswith('e.'):
+                output.write("{}. {}\n".format(key, value[3:]))    # write letter and answer to file
             else:
-                output.write("{}. {}\n".format(key, values))  # write letter and answer to file
+                output.write("{}. {}\n".format(key, value))  # write letter and answer to file
 
             # FIND correct answer letter (i.e. compare correct answer with all other answers)
-            # delete spaces from answers
-            if values.count(" ") != 0:
-                values = values.replace(" ","")
-            # if input answers start with lower-case letters, delete them
-            if values.startswith('a.') or values.startswith('b.') or values.startswith('c.') or values.startswith(
-                    'd.') or values.startswith('e.'):
-                values = values[2:]
-            # delete spaces from correct answer
-            if bold_sentence.count(" ") != 0:
-                bold_sentence = bold_sentence.replace(" ","")
-            # if correct answer starts with lower-case letters, delete it
-            if bold_sentence.startswith('a.') or bold_sentence.startswith('b.') or bold_sentence.startswith('c.') or \
-                    bold_sentence.startswith('d.') or bold_sentence.startswith('e.'):
-                bold_sentence = bold_sentence[2:]
-            if bold_sentence == values:  # get letter for correct answer
+            value = self.clear_sentence(value)
+            bold_sentence = self.clear_sentence(bold_sentence)
+            if bold_sentence == value:  # get letter for correct answer
                 #print(bold_sentence)
                 correct_answer = key
 
@@ -116,19 +132,24 @@ class QuestionsParser():
                 if paragraph.text[0].isdigit():                     # check if line begins with digit (find question)
                     question = paragraph.text                       # get line containing question
                 elif paragraph.runs[0].italic is None:              # exclude chapter titles written in italic
-                    answers.append(paragraph.text)                  # save all other lines to answer list
+                    answer = self.remove_multiple_spaces(paragraph.text)
+                    answers.append(answer)                  # save all other lines to answer list
 
-                # Loop across individual words in given line
-                for run in paragraph.runs:
-                    # Skip line if it is question (sometimes question can be bold, better to skip it)
-                    if paragraph.text[0].isdigit():
-                        continue
-                    if run.bold:                    # extract bold words
-                        bold_sentence += run.text   # create line from individual bold words
+                    # Loop across individual words in given line
+                    for run in paragraph.runs:
+                        # Skip line if it is question (sometimes question can be bold, better to skip it)
+                        if paragraph.text[0].isdigit():
+                            continue
+                        if run.bold:                    # extract bold words
+                            bold_sentence += run.text   # create line from individual bold words
 
             # If line is empty (after question and set of answers), call function for writing to file
             # update - there could be space between individual input answers -> added len(answers) condition
             elif paragraph.text is "" and bold_sentence != "" and len(answers) == 5:
+
+                question = self.remove_multiple_spaces(question)
+                bold_sentence = self.remove_multiple_spaces(bold_sentence)
+
                 self.write_paragraph(question, answers, bold_sentence, output)
                 answers = list()
                 bold_sentence = str()
