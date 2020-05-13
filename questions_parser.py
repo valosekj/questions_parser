@@ -70,6 +70,10 @@ class QuestionsParser():
 
         return input_sentence
 
+    def remove_lowercase_letters(self, input_sentence):
+        # if input answers start with lower-case letters, delete them
+        return re.sub('[a-e]\s{0,1}\.\s', '', input_sentence)  # delete 'a. ' or 'a . '
+
     def write_paragraph(self, question, answers, bold_sentence, output):
         """
         write parsed (reformatted and cleared) question and answers into utf-8 file
@@ -86,12 +90,9 @@ class QuestionsParser():
 
         answers_dict = (dict(zip(letters, answers)))  # combine letters and answers into dict
         for key, value in answers_dict.items():
-            # if input answers start with lower-case letters, delete them
-            if value.startswith('a.') or value.startswith('b.') or value.startswith('c.') or value.startswith('d.') \
-                    or value.startswith('e.'):
-                output.write("{}. {}\n".format(key, value[3:]))    # write letter and answer to file
-            else:
-                output.write("{}. {}\n".format(key, value))  # write letter and answer to file
+
+            value = self.remove_lowercase_letters(value)
+            output.write("{}. {}\n".format(key, value))  # write letter and answer to file
 
             # FIND correct answer letter (i.e. compare correct answer with all other answers)
             value = self.clear_sentence(value)
