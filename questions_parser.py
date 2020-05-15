@@ -74,6 +74,10 @@ class QuestionsParser():
         # if input answers start with lower-case letters, delete them
         return re.sub('[a-e]\s{0,1}\.\s', '', input_sentence)  # delete 'a. ' or 'a . '
 
+    def remove_number(self, input_sentence):
+        # if input question starts with number, delete it
+        return re.sub('[0-9]{1,2}\s{0,1}\.\s', '', input_sentence)  # delete '5. ' or '5 . '
+
     def write_paragraph(self, question, answers, bold_sentence, output):
         """
         write parsed (reformatted and cleared) question and answers into utf-8 file
@@ -149,6 +153,7 @@ class QuestionsParser():
             elif paragraph.text is "" and bold_sentence != "" and len(answers) == 5:
 
                 question = self.remove_multiple_spaces(question)
+                question = self.remove_number(question)
                 bold_sentence = self.remove_multiple_spaces(bold_sentence)
 
                 self.write_paragraph(question, answers, bold_sentence, output)
