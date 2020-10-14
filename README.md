@@ -1,5 +1,5 @@
 ## Questions parser
-Python script for converting set of questions and answers from .docx to utf8 .txt
+Python script for converting set of questions and answers from .docx format to utf8 .txt format to be compatible with learning management system [Moodle](https://en.wikipedia.org/wiki/Moodle) 
 
 #### INSTALL:
 `git clone https://github.com/valosekj/questions_parser.git`
