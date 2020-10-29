@@ -24,11 +24,11 @@ install required packages:
 
 `pip install -r requirements.txt`
 
-#### USAGE:
-`python questions_parser.py -i input_file.docx -o output_file.txt`
-
 #### REQUIREMENTS:
 `python-docx`
+
+#### USAGE:
+`python questions_parser.py -i input_file.docx -o output_file.txt`
 
 #### Example of input and output files:
 Example of input file:
@@ -62,5 +62,5 @@ or
 Question is detected based on the numbering. Correct answer is selected from original answers based on bold text.
 Answers in new file are shown in alphabetical list and correct answer is denoted below answers.
 
-#### Author:
+#### AUTHOR:
 Jan Valosek, fMRI laboratory Olomouc
