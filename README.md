@@ -51,7 +51,7 @@ or
 
  Example of output file:
  
-       1. Some question:
+       Some question:
        A. Answer I
        B. Answer II
        C. Answer III
