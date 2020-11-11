@@ -15,7 +15,7 @@
 #       Answer V
 #
 # Example of output file:
-#       1. Some question:
+#       Some question:
 #       A. Answer I
 #       B. Answer II
 #       C. Answer III
@@ -28,6 +28,11 @@
 # is denoted below answers.
 # Script also clear multiple spaces in question and answers.
 #
+
+# KNOWN BUG:
+# - it looks that python-docx package does nut fully support automatic numbering
+# https://stackoverflow.com/questions/52094242/is-there-any-way-to-read-docx-file-include-auto-numbering-using-python-docx
+
 #######################################################################
 #   Jan Valosek, fMRI laboratory, VER=09-04-2020
 #######################################################################
