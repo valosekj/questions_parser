@@ -71,4 +71,4 @@ Question is detected based on the numbering. Correct answer is selected from ori
 Answers in new file are shown in alphabetical list and correct answer is denoted below answers.
 
 #### AUTHOR:
-Jan Valosek, fMRI laboratory Olomouc
+Jan Valosek, fMRI laboratory, Department of Neurology, Palacký University Olomouc and University Hospital Olomouc, Olomouc, Czechia
