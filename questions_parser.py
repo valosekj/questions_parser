@@ -58,26 +58,23 @@ class QuestionsParser():
         """
         return re.sub(' +', ' ', input_sentence)
 
-    def clear_sentence(self, input_sentence):
+    def remove_single_space(self, input_sentence):
         """
-        clear sentence - remove spaces and initial lower-case letter
+        clear sentence - remove single spaces from input sentence
         this step is better for comparison (finding correct answer)
+        # TODO - check if this function can be merged with remove_multiple_spaces function
         :param input_sentence: str: input sentence to be cleared
-        :return: str: cleared sentence
+        :return: str: sentence without any space
         """
         # delete all spaces (sometimes are spaces at unexpected positions -> better to clean them)
         if input_sentence.count(" ") != 0:
             input_sentence = input_sentence.replace(" ", "")
-        # if sentence starts with lower-case letters, delete it
-        if input_sentence.startswith('a.') or input_sentence.startswith('b.') or input_sentence.startswith('c.') \
-                or input_sentence.startswith('d.') or input_sentence.startswith('e.'):
-            input_sentence = input_sentence[2:]
 
         return input_sentence
 
     def remove_lowercase_letters(self, input_sentence):
         # if input answers start with lower-case letters, delete them
-        return re.sub('[a-e]\s{0,1}[\.\)]\s', '', input_sentence)  # delete 'a. ' or 'a . '
+        return re.sub('[a-e]\s{0,1}[\.\)]\s{0,1}', '', input_sentence)  # delete 'a. ' or 'a . '
 
     def remove_number(self, input_sentence):
         # if input question starts with number, delete it
@@ -105,9 +102,9 @@ class QuestionsParser():
             output.write("{}. {}\n".format(key, value))         # write letter and answer to file
 
             # FIND correct answer letter (i.e. compare correct answer with all other answers)
-            value = self.clear_sentence(value)                  # remove spaces (better for comparison with correct answer)
+            value = self.remove_single_space(value)                  # remove spaces (better for comparison with correct answer)
             bold_sentence = self.remove_lowercase_letters(bold_sentence)        # clear correct answer
-            bold_sentence = self.clear_sentence(bold_sentence)                  # remove spaces from correct asnwer
+            bold_sentence = self.remove_single_space(bold_sentence)                  # remove spaces from correct asnwer
             if bold_sentence == value:  # get letter for correct answer
                 #print(bold_sentence)
                 correct_answer = key
