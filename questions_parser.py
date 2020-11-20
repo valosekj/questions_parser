@@ -77,7 +77,7 @@ class QuestionsParser():
 
     def remove_lowercase_letters(self, input_sentence):
         # if input answers start with lower-case letters, delete them
-        return re.sub('[a-e]\s{0,1}\.\s', '', input_sentence)  # delete 'a. ' or 'a . '
+        return re.sub('[a-e]\s{0,1}[\.\)]\s', '', input_sentence)  # delete 'a. ' or 'a . '
 
     def remove_number(self, input_sentence):
         # if input question starts with number, delete it
@@ -98,14 +98,16 @@ class QuestionsParser():
         output.write("{}\n".format(question))         # write question to file
 
         answers_dict = (dict(zip(letters, answers)))  # combine letters and answers into dict
+        # loop across answers
         for key, value in answers_dict.items():
 
-            value = self.remove_lowercase_letters(value)
-            output.write("{}. {}\n".format(key, value))  # write letter and answer to file
+            value = self.remove_lowercase_letters(value)        # clear answer
+            output.write("{}. {}\n".format(key, value))         # write letter and answer to file
 
             # FIND correct answer letter (i.e. compare correct answer with all other answers)
-            value = self.clear_sentence(value)
-            bold_sentence = self.clear_sentence(bold_sentence)
+            value = self.clear_sentence(value)                  # remove spaces (better for comparison with correct answer)
+            bold_sentence = self.remove_lowercase_letters(bold_sentence)        # clear correct answer
+            bold_sentence = self.clear_sentence(bold_sentence)                  # remove spaces from correct asnwer
             if bold_sentence == value:  # get letter for correct answer
                 #print(bold_sentence)
                 correct_answer = key

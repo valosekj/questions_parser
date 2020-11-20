@@ -31,7 +31,7 @@ install required packages:
 `python questions_parser.py -i input_file.docx -o output_file.txt`
 
 #### Example of input and output files:
-Example of input file:
+Example of input file (answers can start with lowercase letters):
     
        1. Some question: (question can be in bold text but it is not necessary)
        Answer I
@@ -47,6 +47,14 @@ or
        c. Answer III (correct answer - written in bold text)
        d. Answer IV
        e. Answer V
+ or
+   
+       1. Some question: (question can be in bold text but it is not necessary)
+       a) Answer I
+       b) Answer II
+       c) Answer III (correct answer - written in bold text)
+       d) Answer IV
+       e) Answer V
 
 
  Example of output file:
