@@ -27,6 +27,8 @@ install required packages:
 #### REQUIREMENTS:
 `python-docx`
 
+`pytest` (only for tests)
+
 #### USAGE:
 `python questions_parser.py -i input_file.docx -o output_file.txt`
 
