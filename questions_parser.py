@@ -152,6 +152,12 @@ class QuestionsParser():
                         if run.bold:                    # extract bold words
                             bold_sentence += run.text   # create line from individual bold words
 
+            # Invoke exception if correct answer is not set (i.e., not set in bold)
+            elif bold_sentence == "" and len(answers) == 5:
+
+                sys.exit("\nERROR: Question number {} does not have set correct answer in bold.".
+                         format(self.counter + 1))
+
             # If line is empty (after question and set of answers), call function for writing to file
             # update - there could be space between individual input answers -> added len(answers) condition
             elif paragraph.text is "" and bold_sentence != "" and len(answers) == 5:
