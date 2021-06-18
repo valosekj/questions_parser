@@ -9,7 +9,7 @@ git clone https://github.com/valosekj/questions_parser.git
 cd questions_parser
 ```
 
-2. create virtual environment, activate it and install required packages - manual [here](https://gist.github.com/valosekj/8052b227bd3f439a615a33804beaf37f#venv-enviroment):
+2. create virtual environment, activate it and install required packages - manual [here](https://gist.github.com/valosekj/8052b227bd3f439a615a33804beaf37f#venv-enviroment)
 
 ## USAGE:
 
