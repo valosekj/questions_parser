@@ -4,29 +4,16 @@ Python script for converting set of questions and answers from .docx format to u
 ## INSTALL:
 1. clone repository:
 
-`git clone https://github.com/valosekj/questions_parser.git`
+```console
+git clone https://github.com/valosekj/questions_parser.git
+cd questions_parser
+```
 
-`cd questions_parser`
-
-2. create virtual environment:
-
-OSX:
-`python3 -m venv venv`
-
-Linux:
-`virtualenv -p /usr/bin/python3 venv`
-
-3. activate virtual environment:
-
-`source venv/bin/activate`
-
-4. install required packages:
-
-`pip install -r requirements.txt`
-
+2. create virtual environment, activate it and install required packages - manual [here](https://gist.github.com/valosekj/8052b227bd3f439a615a33804beaf37f#venv-enviroment):
 
 ## USAGE:
-```
+
+```console
 python questions_parser.py -i input_file.docx -o output_file.txt
 ```
 
