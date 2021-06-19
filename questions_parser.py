@@ -116,11 +116,11 @@ class QuestionsParser():
         sys.stdout.write("\rNumber of successfully processed questions: %s" % (self.counter))
         sys.stdout.flush()
 
-    def main(self):
+    def main(self, argv=None):
 
         # Get parser args
         parser = self.get_parser()
-        self.arguments = parser.parse_args()
+        self.arguments = parser.parse_args(argv)
 
         if os.path.isfile(self.arguments.i):
             document = Document(self.arguments.i)
@@ -208,4 +208,4 @@ class QuestionsParser():
 
 if __name__ == "__main__":
     questions_parser = QuestionsParser()
-    questions_parser.main()
+    questions_parser.main(sys.argv[1:])

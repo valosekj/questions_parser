@@ -6,6 +6,7 @@
 #   python -m pytest -v test_questions_parser.py
 #######################################################################
 
+import os
 from questions_parser import QuestionsParser
 
 
@@ -32,3 +33,17 @@ def test_remove_lowercase_letters():
     questions_parser = QuestionsParser()
     assert questions_parser.remove_lowercase_letters('a. this is a test answer') == 'this is a test answer'
     assert questions_parser.remove_lowercase_letters('b) this is a test answer') == 'this is a test answer'
+
+
+def test_check_if_output_file_exists():
+    """
+    test if output .txt file is created
+    """
+    input_file = os.path.join(os.getcwd(), 'tests', 'input_test_file.docx')
+    output_file = os.path.join(os.getcwd(), 'tests', 'output_test_file.txt')
+
+    questions_parser = QuestionsParser()
+    questions_parser.main(argv=['-i', input_file,
+                                '-o', output_file])
+    assert os.path.exists(output_file)
+    os.unlink(output_file)
