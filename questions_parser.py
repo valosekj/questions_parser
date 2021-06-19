@@ -116,6 +116,9 @@ class QuestionsParser():
         sys.stdout.write("\rNumber of successfully processed questions: %s" % (self.counter))
         sys.stdout.flush()
 
+        # used for unittest
+        return self.counter
+
     def main(self, argv=None):
 
         # Get parser args
@@ -129,7 +132,7 @@ class QuestionsParser():
 
         output = codecs.open(self.arguments.o, "w", "utf-8")
 
-
+        counter = int()
         question = str()
         bold_sentence = str()
         answers = list()
@@ -166,12 +169,15 @@ class QuestionsParser():
                 question = self.remove_number(question)
                 bold_sentence = self.remove_multiple_spaces(bold_sentence)
 
-                self.write_paragraph(question, answers, bold_sentence, output)
+                counter = self.write_paragraph(question, answers, bold_sentence, output)
                 answers = list()
                 bold_sentence = str()
 
         output.close()      # close output txt file
         print()  # go to new line when counter finish
+
+        # used for unittest
+        return counter
 
 
     def get_parser(self):

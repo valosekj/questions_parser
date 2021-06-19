@@ -43,7 +43,18 @@ def test_check_if_output_file_exists():
     output_file = os.path.join(os.getcwd(), 'tests', 'output_test_file.txt')
 
     questions_parser = QuestionsParser()
-    questions_parser.main(argv=['-i', input_file,
-                                '-o', output_file])
+    questions_parser.main(argv=['-i', input_file, '-o', output_file])
     assert os.path.exists(output_file)
+    os.unlink(output_file)
+
+
+def test_check_number_of_questions_in_output_file():
+    """
+    test to check number of questions in output .txt file
+    """
+    input_file = os.path.join(os.getcwd(), 'tests', 'input_test_file.docx')
+    output_file = os.path.join(os.getcwd(), 'tests', 'output_test_file.txt')
+
+    questions_parser = QuestionsParser()
+    assert questions_parser.main(argv=['-i', input_file, '-o', output_file]) == 2
     os.unlink(output_file)
