@@ -58,5 +58,5 @@ def test_check_number_of_questions_in_output_file():
     output_file = os.path.join(os.getcwd(), 'tests', 'output_test_file.txt')
 
     questions_parser = QuestionsParser()
-    assert questions_parser.main(argv=['-i', input_file, '-o', output_file]) == 2
+    assert questions_parser.main(argv=['-i', input_file, '-o', output_file]) == 4
     os.unlink(output_file)
