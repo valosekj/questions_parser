@@ -34,7 +34,7 @@
 # https://stackoverflow.com/questions/52094242/is-there-any-way-to-read-docx-file-include-auto-numbering-using-python-docx
 
 #######################################################################
-#   Jan Valosek, fMRI laboratory, VER=09-04-2020
+#   Jan Valosek, fMRI laboratory
 #######################################################################
 
 import sys
