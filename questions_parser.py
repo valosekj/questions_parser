@@ -183,8 +183,8 @@ class QuestionsParser():
     def get_parser(self):
 
         parser = argparse.ArgumentParser(
-            description='Parser for exam questions. See code for whole help. '
-                        'Jan Valosek, 2020',
+            description='Script for converting set of questions and answers from .docx to utf8 .txt.\n'
+                        'Jan Valosek, 2020-2021',
             add_help=False,
             prog=os.path.basename(__file__))
 
