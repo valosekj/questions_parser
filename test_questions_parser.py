@@ -4,6 +4,8 @@
 #
 # RUN BY:
 #   python -m pytest -v test_questions_parser.py
+# or simply by
+#   pytest
 #######################################################################
 
 import os
